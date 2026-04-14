@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,28 +9,44 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @media print {
-            .no-print { display: none; }
-            body { background: white; color: black; }
-            .ticket-card { border: 2px solid #ccc; shadow: none; }
+            .no-print {
+                display: none;
+            }
+
+            body {
+                background: white;
+                color: black;
+            }
+
+            .ticket-card {
+                border: 2px solid #ccc;
+                shadow: none;
+            }
         }
     </style>
 </head>
+
 <body class="bg-slate-950 p-4 sm:p-10 text-slate-200">
 
     <div class="max-w-3xl mx-auto">
         <div class="no-print flex flex-col sm:flex-row justify-between items-center gap-4 mb-8">
-            <a href="my-bookings.html" class="text-blue-500 hover:text-blue-400 font-semibold flex items-center transition-colors group">
-                <i class="fa-solid fa-arrow-left mr-2 group-hover:-translate-x-1 transition-transform"></i> 
+            <a href="my-bookings.html"
+                class="text-blue-500 hover:text-blue-400 font-semibold flex items-center transition-colors group">
+                <i class="fa-solid fa-arrow-left mr-2 group-hover:-translate-x-1 transition-transform"></i>
                 Back to Booking History
             </a>
-            <button onclick="window.print()" class="bg-blue-600 px-8 py-3 min-w-[160px] rounded-xl text-white font-bold hover:bg-blue-700 transition-all shadow-lg shadow-blue-500/30 flex items-center justify-center">
+            <button onclick="window.print()"
+                class="bg-blue-600 px-8 py-3 min-w-[160px] rounded-xl text-white font-bold hover:bg-blue-700 transition-all shadow-lg shadow-blue-500/30 flex items-center justify-center">
                 <i class="fa-solid fa-print mr-2"></i> Print Ticket
             </button>
         </div>
 
-        <div id="ticket-content" class="ticket-card bg-slate-900 rounded-3xl border-2 border-slate-800 overflow-hidden shadow-2xl">
+        <div id="ticket-content"
+            class="ticket-card bg-slate-900 rounded-3xl border-2 border-slate-800 overflow-hidden shadow-2xl">
             <!-- Content will be injected here -->
-            <div class="p-20 text-center"><i class="fa-solid fa-spinner fa-spin text-4xl mb-4"></i><p>Generating your ticket...</p></div>
+            <div class="p-20 text-center"><i class="fa-solid fa-spinner fa-spin text-4xl mb-4"></i>
+                <p>Generating your ticket...</p>
+            </div>
         </div>
 
         <div class="no-print mt-8 text-center text-sm">
@@ -52,9 +69,12 @@
 
             try {
                 // We fetch all bookings and find this one (simplified demo approach)
-                const response = await fetch('/api/bookings');
-                const data = await response.json();
-                const booking = data.bookings.find(b => b._id === bookingId);
+                const allBookings = JSON.parse(localStorage.getItem('tripnestBookings')) || [];
+                const booking = allBookings.find(b => (b.bookingId || b._id) === bookingId);
+
+                if (!booking) {
+                    throw new Error('Booking not found');
+                }
 
                 if (!booking) throw new Error('Booking not found');
 
@@ -119,4 +139,5 @@
         });
     </script>
 </body>
+
 </html>
