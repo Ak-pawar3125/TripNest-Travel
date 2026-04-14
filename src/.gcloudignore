@@ -1,0 +1,9 @@
+.gcloudignore
+.git
+.gitignore
+node_modules
+src
+tailwind.config.js
+cleanup.js
+darktheme.js
+package-lock.json

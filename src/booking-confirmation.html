@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Confirmation - TripNest Travels</title>
+    <!-- Use the same compiled Tailwind output to maintain current website design unchanged -->
+    <link href="output.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body class="bg-slate-950 font-sans text-slate-200 antialiased min-h-screen flex flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-2xl w-full bg-slate-900 rounded-3xl shadow-2xl border border-slate-800 overflow-hidden relative">
+        <!-- Top decorative bar -->
+        <div class="h-2 w-full bg-gradient-to-r from-blue-600 to-indigo-600"></div>
+
+        <div class="p-8 sm:p-12">
+            <div class="text-center mb-8">
+                <div class="w-24 h-24 bg-green-500/20 text-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="fa-solid fa-check-double text-5xl"></i>
+                </div>
+                <h2 class="text-3xl font-extrabold text-slate-50 tracking-tight sm:text-4xl">Booking Confirmed!</h2>
+                <p class="mt-4 text-lg text-slate-400">Your trip has been successfully processed and confirmed.</p>
+            </div>
+
+            <!-- Booking Summary Card -->
+            <div class="bg-slate-950 rounded-2xl p-6 border border-slate-800 shadow-inner mb-8">
+                <h3 class="text-sm font-semibold text-indigo-400 uppercase tracking-wider mb-4 border-b border-slate-800 pb-2">Booking Summary</h3>
+                
+                <div class="space-y-4" id="confirmation-details">
+                    <!-- Dynamic details will be injected here via JS -->
+                    <div class="text-slate-400 text-center py-4"><i class="fa-solid fa-spinner fa-spin mr-2"></i>Loading details...</div>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <a href="index.html" class="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-xl text-white bg-blue-600 hover:bg-blue-700 shadow-xl shadow-blue-500/30 transition-all">
+                    <i class="fa-solid fa-arrow-left mr-2"></i> Return to Home
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script to load from localStorage -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const detailsContainer = document.getElementById('confirmation-details');
+            const latestBooking = localStorage.getItem('tripnest_latest_booking');
+
+            if (latestBooking) {
+                const booking = JSON.parse(latestBooking);
+                
+                detailsContainer.innerHTML = `
+                    <div class="flex justify-between items-center">
+                        <span class="text-slate-400">Transaction ID</span>
+                        <span class="font-mono text-slate-200 font-medium">${booking.transactionId}</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-slate-400">Traveler Name</span>
+                        <span class="text-slate-200 font-medium">${booking.name}</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-slate-400">Destination</span>
+                        <span class="text-slate-200 font-medium">${booking.destination}</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-slate-400">Travel Date</span>
+                        <span class="text-slate-200 font-medium">${booking.date}</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-slate-400">Amount Paid</span>
+                        <span class="text-indigo-400 font-bold">${booking.amount}</span>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-slate-800 flex justify-between items-center">
+                        <span class="text-slate-400">Status</span>
+                        <span class="px-3 py-1 bg-green-500/20 text-green-400 text-xs font-bold rounded-full uppercase tracking-wider">${booking.status}</span>
+                    </div>
+                `;
+            } else {
+                detailsContainer.innerHTML = `
+                    <div class="text-red-400 text-center py-4">
+                        <i class="fa-solid fa-triangle-exclamation mr-2"></i> No recent booking found.
+                    </div>
+                `;
+            }
+        });
+    </script>
+</body>
+
+</html>

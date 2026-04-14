@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TripNest Travels - Explore the World</title>
+    <!-- Compiled Tailwind CSS -->
+    <link rel="stylesheet" href="output.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+
+
+
+</head>
+
+<body class="bg-slate-950  text-slate-200  selection:bg-blue-300 selection:text-white transition-colors duration-300">
+
+    <!-- Navigation Bar -->
+    <nav class="fixed w-full z-50 glass    transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="#"
+                        class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 tracking-tight">
+                        <i class="fa-solid fa-plane-up mr-2 text-blue-600"></i>TripNest Travels
+                    </a>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden lg:ml-6 lg:flex lg:space-x-6 items-center">
+                    <!-- Search Bar -->
+                    <div class="relative group w-48 xl:w-64">
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                            <i
+                                class="fa-solid fa-magnifying-glass text-gray-400 group-focus-within:text-blue-500 transition-colors"></i>
+                        </div>
+                        <input type="text" id="destination-search"
+                            class="bg-slate-800   border border-transparent focus:bg-slate-900 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-slate-50 text-sm rounded-full block w-full pl-10 pr-4 py-2 transition-all outline-none shadow-inner"
+                            placeholder="Search destinations...">
+                    </div>
+
+                    <a href="#home" class="text-slate-50 font-medium hover:text-blue-600 px-3 py-2 rounded-md transition-colors">Home</a>
+                    <a href="#destinations" class="text-slate-50 font-medium hover:text-blue-600 px-3 py-2 rounded-md transition-colors">Destinations</a>
+                    <a href="#about" class="text-slate-50 font-medium hover:text-blue-600 px-3 py-2 rounded-md transition-colors">About</a>
+                    
+                    <!-- Auth State Dynamic Container -->
+                    <div id="nav-auth-container" class="flex items-center space-x-4">
+                        <button id="nav-login-btn" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full font-bold transition-all shadow-lg shadow-blue-500/30 focus:outline-none text-sm whitespace-nowrap min-w-[160px]">Login / Signup</button>
+                    </div>
+                    
+                    <div id="nav-user-container" class="hidden flex items-center space-x-4">
+                        <a href="my-bookings.html" class="text-slate-50 font-medium hover:text-blue-600 px-3 py-2 rounded-md transition-colors">My Bookings</a>
+                        <button id="nav-logout-btn" class="bg-slate-800 hover:bg-slate-700 text-slate-300 px-4 py-2 rounded-full font-medium transition-colors border border-slate-700 focus:outline-none text-sm">Logout</button>
+                    </div>
+
+
+
+                </div>
+
+                <!-- Mobile button -->
+                <div class="flex items-center md:hidden">
+                    <button id="mobile-menu-btn"
+                        class="text-slate-400 hover:text-slate-50 focus:outline-none focus:text-slate-50">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu (Hidden by default) -->
+        <div id="mobile-menu"
+            class="hidden md:hidden bg-slate-900/95 backdrop-blur-md border-t border-slate-800 p-6 space-y-4 animate-in fade-in slide-in-from-top-4 duration-300">
+            <a href="#home" class="block text-slate-300 hover:text-blue-500 font-medium transition-colors">Home</a>
+            <a href="#destinations" class="block text-slate-300 hover:text-blue-500 font-medium transition-colors">Destinations</a>
+            <a href="#about" class="block text-slate-300 hover:text-blue-500 font-medium transition-colors">About</a>
+            
+            <div id="mobile-auth-container" class="pt-4 border-t border-slate-800">
+                <button id="mobile-nav-login-btn" class="w-full py-4 bg-blue-600 text-white font-bold rounded-xl shadow-lg shadow-blue-500/30 hover:bg-blue-700 transition-all text-sm text-center">Login / Signup</button>
+            </div>
+            
+            <div id="mobile-user-container" class="hidden pt-4 border-t border-slate-800 space-y-4">
+                <a href="my-bookings.html" class="block py-3 text-slate-300 font-semibold text-center border border-slate-700 rounded-xl hover:bg-slate-800 transition-all text-sm">My Bookings</a>
+                <button id="mobile-logout-btn" class="w-full py-3 bg-slate-800 text-slate-300 font-semibold rounded-xl border border-slate-700 hover:bg-slate-700 transition-all text-sm">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden flex items-center min-h-screen">
+        <!-- Background Image with Overlay -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?ixlib=rb-4.0.3&auto=format&fit=crop&w=2021&q=80"
+                alt="Beautiful landscape" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-r from-gray-900/90 to-gray-900/40"></div>
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-3xl">
+                <span class="block text-blue-400 font-semibold tracking-wider uppercase mb-3 drop-shadow-md">Explore the
+                    Unknown</span>
+                <h1 class="text-5xl md:text-7xl font-extrabold text-white leading-tight mb-6">
+                    Discover Your Next <span
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-teal-400">Great
+                        Adventure</span>
+                </h1>
+                <p class="text-xl text-gray-200 mb-10 max-w-2xl font-light">
+                    From the snowy peaks of the Swiss Alps to the vibrant streets of Tokyo. Let us guide you to the
+                    world's most breathtaking locations with seamless planning.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="#destinations"
+                        class="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-full font-semibold text-center transition-all shadow-lg hover:shadow-blue-600/50 flex items-center justify-center">
+                        Explore Destinations <i class="fa-solid fa-arrow-right ml-2"></i>
+                    </a>
+                    <a href="#about"
+                        class="px-8 py-4 bg-white/10 hover:bg-white/20 text-white rounded-full font-semibold text-center backdrop-blur-sm border border-white/20 transition-all flex items-center justify-center">
+                        Watch Intro <i class="fa-solid fa-play ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Decoration Elements -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white/50 animate-bounce">
+            <i class="fa-solid fa-chevron-down text-2xl"></i>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 bg-slate-900  transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:grid lg:grid-cols-2 lg:gap-16 items-center">
+                <div class="mb-12 lg:mb-0 relative py-8">
+                    <div
+                        class="absolute inset-0 bg-slate-800  rounded-3xl transform -rotate-3 scale-105 z-0 transition-colors duration-300">
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                        alt="About Us"
+                        class="relative rounded-3xl shadow-xl border border-slate-800  object-cover h-[500px] w-full z-10 transition-transform hover:scale-105 duration-500">
+                </div>
+                <div>
+                    <h2 class="text-sm font-bold text-blue-600  tracking-wide uppercase">Why Choose Us</h2>
+                    <h3 class="mt-2 text-3xl font-extrabold text-slate-50  sm:text-4xl transition-colors duration-300">
+                        Experience the world like never before.</h3>
+                    <p class="mt-6 text-lg text-slate-400  text-justify transition-colors duration-300">At AntiGravity
+                        Travels, we believe that traveling should be as effortless and elevating as defying gravity
+                        itself. For over a decade, we have been crafting bespoke itineraries, connecting passionate
+                        travelers to the most profound and authentic experiences across the globe.</p>
+                    <p class="mt-4 text-lg text-slate-400  text-justify transition-colors duration-300">Whether you are
+                        looking for a secluded beach in Bali, a historical deep dive in Rome, or a thrilling safari in
+                        South Africa, our expert team ensures every detail is perfect.</p>
+                    <div class="mt-10 grid grid-cols-2 gap-6">
+                        <div class="flex items-center gap-4">
+                            <div
+                                class="h-12 w-12 rounded-full bg-blue-900/30  flex items-center justify-center flex-shrink-0 transition-colors duration-300">
+                                <i class="fa-solid fa-umbrella-beach text-blue-600  text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-50  transition-colors duration-300">Custom Trips</h4>
+                                <p class="text-sm text-slate-400  transition-colors duration-300">Tailored to you</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div
+                                class="h-12 w-12 rounded-full bg-blue-900/30  flex items-center justify-center flex-shrink-0 transition-colors duration-300">
+                                <i class="fa-solid fa-headset text-blue-600  text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-50  transition-colors duration-300">24/7 Support</h4>
+                                <p class="text-sm text-slate-400  transition-colors duration-300">Always here</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Best Places to Visit Section -->
+    <section id="destinations" class="py-24 bg-slate-950  transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-sm font-bold text-blue-600  tracking-wide uppercase">Top Locations</h2>
+                <h3 class="mt-2 text-4xl font-extrabold text-slate-50  sm:text-5xl transition-colors duration-300">Best
+                    Places to Visit</h3>
+                <p class="mt-4 text-xl text-slate-400  transition-colors duration-300">Pick your dream destination and
+                    start planning today.</p>
+            </div>
+
+            <!-- Filter Options -->
+            <div class="flex flex-wrap justify-center gap-4 mb-12">
+                <button class="filter-btn active" data-region="all">All</button>
+                <button class="filter-btn" data-region="europe">Europe</button>
+                <button class="filter-btn" data-region="asia">Asia</button>
+                <button class="filter-btn" data-region="india">India</button>
+                <button class="filter-btn" data-region="americas">Americas</button>
+                <button class="filter-btn" data-region="africa">Africa</button>
+                <button class="filter-btn" data-region="oceania">Oceania</button>
+            </div>
+
+            <!-- Destinations Grid -->
+            <div id="destinations-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                <!-- Card 1 -->
+                <div class="destination-card interactive-card bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 shadow-sm"
+                    data-region="europe">
+                    <div class="relative h-64">
+                        <img src="https://images.unsplash.com/photo-1499856871958-5b9627545d1a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="Paris" class="w-full h-full object-cover">
+                        <div
+                            class="absolute top-4 right-4 bg-slate-900/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-bold text-slate-50 shadow-sm">
+                            <i class="fa-solid fa-star text-yellow-400 mr-1"></i> 4.9
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="text-2xl font-bold text-slate-50">Paris, France</h4>
+                            <span class="text-blue-600 font-bold bg-slate-800 px-3 py-1 rounded-lg">$899</span>
+                        </div>
+                        <p class="text-slate-400 mb-4 line-clamp-2">Experience the city of love, visit the Eiffel Tower,
+                            and enjoy world-class cuisine.</p>
+                        <hr class="border-slate-800 mb-4">
+                        <div class="flex justify-between items-center">
+                            <div class="flex text-slate-400 text-sm gap-4">
+                                <span><i class="fa-regular fa-clock mr-1 text-blue-600"></i>5 Days</span>
+                                <span><i class="fa-solid fa-plane mr-1 text-blue-600"></i>Flight Inc.</span>
+                            </div>
+                            <button class="text-blue-600 font-semibold hover:text-blue-800 transition-colors">Book <i
+                                    class="fa-solid fa-arrow-right ml-1"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="destination-card interactive-card bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 shadow-sm"
+                    data-region="asia">
+                    <div class="relative h-64">
+                        <img src="https://images.unsplash.com/photo-1503899036084-c55cdd92da26?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="Tokyo" class="w-full h-full object-cover">
+                        <div
+                            class="absolute top-4 right-4 bg-slate-900/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-bold text-slate-50 shadow-sm">
+                            <i class="fa-solid fa-star text-yellow-400 mr-1"></i> 4.8
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="text-2xl font-bold text-slate-50">Tokyo, Japan</h4>
+                            <span class="text-blue-600 font-bold bg-slate-800 px-3 py-1 rounded-lg">$1,299</span>
+                        </div>
+                        <p class="text-slate-400 mb-4 line-clamp-2">Dive into a vibrant mix of traditional temples and
+                            futuristic cityscapes.</p>
+                        <hr class="border-slate-800 mb-4">
+                        <div class="flex justify-between items-center">
+                            <div class="flex text-slate-400 text-sm gap-4">
+                                <span><i class="fa-regular fa-clock mr-1 text-blue-600"></i>7 Days</span>
+                                <span><i class="fa-solid fa-hotel mr-1 text-blue-600"></i>Hotel Inc.</span>
+                            </div>
+                            <button class="text-blue-600 font-semibold hover:text-blue-800 transition-colors">Book <i
+                                    class="fa-solid fa-arrow-right ml-1"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="destination-card interactive-card bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 shadow-sm"
+                    data-region="americas">
+                    <div class="relative h-64">
+                        <img src="https://images.unsplash.com/photo-1518684079-3c830dcef090?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="Grand Canyon" class="w-full h-full object-cover">
+                        <div
+                            class="absolute top-4 right-4 bg-slate-900/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-bold text-slate-50 shadow-sm">
+                            <i class="fa-solid fa-star text-yellow-400 mr-1"></i> 4.9
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="text-2xl font-bold text-slate-50">Grand Canyon</h4>
+                            <span class="text-blue-600 font-bold bg-slate-800 px-3 py-1 rounded-lg">$599</span>
+                        </div>
+                        <p class="text-slate-400 mb-4 line-clamp-2">Witness one of the natural wonders of the world in
+                            an
+                            unforgettable trip.</p>
+                        <hr class="border-slate-800 mb-4">
+                        <div class="flex justify-between items-center">
+                            <div class="flex text-slate-400 text-sm gap-4">
+                                <span><i class="fa-regular fa-clock mr-1 text-blue-600"></i>3 Days</span>
+                                <span><i class="fa-solid fa-bus mr-1 text-blue-600"></i>Tour Inc.</span>
+                            </div>
+                            <button class="text-blue-600 font-semibold hover:text-blue-800 transition-colors">Book <i
+                                    class="fa-solid fa-arrow-right ml-1"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="destination-card interactive-card bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 shadow-sm"
+                    data-region="europe">
+                    <div class="relative h-64">
+                        <img src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="Cinque Terre" class="w-full h-full object-cover">
+                        <div
+                            class="absolute top-4 right-4 bg-slate-900/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-bold text-slate-50 shadow-sm">
+                            <i class="fa-solid fa-star text-yellow-400 mr-1"></i> 4.7
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="text-2xl font-bold text-slate-50">Cinque Terre, Italy</h4>
+                            <span class="text-blue-600 font-bold bg-slate-800 px-3 py-1 rounded-lg">$949</span>
+                        </div>
+                        <p class="text-slate-400 mb-4 line-clamp-2">Explore the colorful coastal villages along the
+                            Italian Riviera coastline.</p>
+                        <hr class="border-slate-800 mb-4">
+                        <div class="flex justify-between items-center">
+                            <div class="flex text-slate-400 text-sm gap-4">
+                                <span><i class="fa-regular fa-clock mr-1 text-blue-600"></i>6 Days</span>
+                                <span><i class="fa-solid fa-ship mr-1 text-blue-600"></i>Cruise Inc.</span>
+                            </div>
+                            <button class="text-blue-600 font-semibold hover:text-blue-800 transition-colors">Book <i
+                                    class="fa-solid fa-arrow-right ml-1"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="destination-card interactive-card bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 shadow-sm"
+                    data-region="asia">
+                    <div class="relative h-64">
+                        <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="Bali" class="w-full h-full object-cover">
+                        <div
+                            class="absolute top-4 right-4 bg-slate-900/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-bold text-slate-50 shadow-sm">
+                            <i class="fa-solid fa-star text-yellow-400 mr-1"></i> 4.9
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="text-2xl font-bold text-slate-50">Bali, Indonesia</h4>
+                            <span class="text-blue-600 font-bold bg-slate-800 px-3 py-1 rounded-lg">$799</span>
+                        </div>
+                        <p class="text-slate-400 mb-4 line-clamp-2">Relax on beautiful beaches and explore magnificent
+                            Hindu temples.</p>
+                        <hr class="border-slate-800 mb-4">
+                        <div class="flex justify-between items-center">
+                            <div class="flex text-slate-400 text-sm gap-4">
+                                <span><i class="fa-regular fa-clock mr-1 text-blue-600"></i>8 Days</span>
+                                <span><i class="fa-solid fa-spa mr-1 text-blue-600"></i>Spa Inc.</span>
+                            </div>
+                            <button class="text-blue-600 font-semibold hover:text-blue-800 transition-colors">Book <i
+                                    class="fa-solid fa-arrow-right ml-1"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 6 -->
+                <div class="destination-card interactive-card bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 shadow-sm"
+                    data-region="americas">
+                    <div class="relative h-64">
+                        <img src="images/machu-picchu.png" alt="Machu Picchu" class="w-full h-full object-cover">
+                        <div
+                            class="absolute top-4 right-4 bg-slate-900/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-bold text-slate-50 shadow-sm">
+                            <i class="fa-solid fa-star text-yellow-400 mr-1"></i> 5.0
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="text-2xl font-bold text-slate-50">Machu Picchu, Peru</h4>
+                            <span class="text-blue-600 font-bold bg-slate-800 px-3 py-1 rounded-lg">$1,499</span>
+                        </div>
+                        <p class="text-slate-400 mb-4 line-clamp-2">Hike the Inca Trail to discover the breathtaking
+                            ancient citadel in the Andes.</p>
+                        <hr class="border-slate-800 mb-4">
+                        <div class="flex justify-between items-center">
+                            <div class="flex text-slate-400 text-sm gap-4">
+                                <span><i class="fa-regular fa-clock mr-1 text-blue-600"></i>10 Days</span>
+                                <span><i class="fa-solid fa-mountain mr-1 text-blue-600"></i>Guide Inc.</span>
+                            </div>
+                            <button class="text-blue-600 font-semibold hover:text-blue-800 transition-colors">Book <i
+                                    class="fa-solid fa-arrow-right ml-1"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 7 -->
+                <div class="destination-card interactive-card bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 shadow-sm"
+                    data-region="india">
+                    <div class="relative h-64">
+                        <img src="https://images.unsplash.com/photo-1548013146-72479768bada?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="Taj Mahal" class="w-full h-full object-cover">
+                        <div
+                            class="absolute top-4 right-4 bg-slate-900/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-bold text-slate-50 shadow-sm">
+                            <i class="fa-solid fa-star text-yellow-400 mr-1"></i> 5.0
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="text-2xl font-bold text-slate-50">Agra, India</h4>
+                            <span class="text-blue-600 font-bold bg-slate-800 px-3 py-1 rounded-lg">$499</span>
+                        </div>
+                        <p class="text-slate-400 mb-4 line-clamp-2">Marvel at the breathtaking beauty of the Taj Mahal,
+                            a symbol of eternal love.</p>
+                        <hr class="border-slate-800 mb-4">
+                        <div class="flex justify-between items-center">
+                            <div class="flex text-slate-400 text-sm gap-4">
+                                <span><i class="fa-regular fa-clock mr-1 text-blue-600"></i>4 Days</span>
+                                <span><i class="fa-solid fa-car mr-1 text-blue-600"></i>Tour Inc.</span>
+                            </div>
+                            <button class="text-blue-600 font-semibold hover:text-blue-800 transition-colors">Book <i
+                                    class="fa-solid fa-arrow-right ml-1"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 8 -->
+                <div class="destination-card interactive-card bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 shadow-sm"
+                    data-region="india">
+                    <div class="relative h-64">
+                        <img src="https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="Kerala Backwaters" class="w-full h-full object-cover">
+                        <div
+                            class="absolute top-4 right-4 bg-slate-900/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-bold text-slate-50 shadow-sm">
+                            <i class="fa-solid fa-star text-yellow-400 mr-1"></i> 4.9
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="text-2xl font-bold text-slate-50">Kerala, India</h4>
+                            <span class="text-blue-600 font-bold bg-slate-800 px-3 py-1 rounded-lg">$649</span>
+                        </div>
+                        <p class="text-slate-400 mb-4 line-clamp-2">Cruise through the serene backwaters on a
+                            traditional houseboat.</p>
+                        <hr class="border-slate-800 mb-4">
+                        <div class="flex justify-between items-center">
+                            <div class="flex text-slate-400 text-sm gap-4">
+                                <span><i class="fa-regular fa-clock mr-1 text-blue-600"></i>5 Days</span>
+                                <span><i class="fa-solid fa-ship mr-1 text-blue-600"></i>Cruise Inc.</span>
+                            </div>
+                            <button class="text-blue-600 font-semibold hover:text-blue-800 transition-colors">Book <i
+                                    class="fa-solid fa-arrow-right ml-1"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 9 -->
+                <div class="destination-card interactive-card bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 shadow-sm"
+                    data-region="africa">
+                    <div class="relative h-64">
+                        <img src="https://images.unsplash.com/photo-1580060839134-75a5edca2e99?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="Cape Town" class="w-full h-full object-cover">
+                        <div
+                            class="absolute top-4 right-4 bg-slate-900/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-bold text-slate-50 shadow-sm">
+                            <i class="fa-solid fa-star text-yellow-400 mr-1"></i> 4.8
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="text-2xl font-bold text-slate-50">Cape Town, SA</h4>
+                            <span class="text-blue-600 font-bold bg-slate-800 px-3 py-1 rounded-lg">$1,199</span>
+                        </div>
+                        <p class="text-slate-400 mb-4 line-clamp-2">Experience Table Mountain and dramatic coastlines in
+                            South Africa.</p>
+                        <hr class="border-slate-800 mb-4">
+                        <div class="flex justify-between items-center">
+                            <div class="flex text-slate-400 text-sm gap-4">
+                                <span><i class="fa-regular fa-clock mr-1 text-blue-600"></i>7 Days</span>
+                                <span><i class="fa-solid fa-binoculars mr-1 text-blue-600"></i>Safari Inc.</span>
+                            </div>
+                            <button class="text-blue-600 font-semibold hover:text-blue-800 transition-colors">Book <i
+                                    class="fa-solid fa-arrow-right ml-1"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 10 -->
+                <div class="destination-card interactive-card bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 shadow-sm"
+                    data-region="oceania">
+                    <div class="relative h-64">
+                        <img src="https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="Sydney" class="w-full h-full object-cover">
+                        <div
+                            class="absolute top-4 right-4 bg-slate-900/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-bold text-slate-50 shadow-sm">
+                            <i class="fa-solid fa-star text-yellow-400 mr-1"></i> 4.9
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="text-2xl font-bold text-slate-50">Sydney, AU</h4>
+                            <span class="text-blue-600 font-bold bg-slate-800 px-3 py-1 rounded-lg">$1,399</span>
+                        </div>
+                        <p class="text-slate-400 mb-4 line-clamp-2">Visit the iconic Opera House and surf the amazing
+                            Bondi Beach.</p>
+                        <hr class="border-slate-800 mb-4">
+                        <div class="flex justify-between items-center">
+                            <div class="flex text-slate-400 text-sm gap-4">
+                                <span><i class="fa-regular fa-clock mr-1 text-blue-600"></i>8 Days</span>
+                                <span><i class="fa-solid fa-plane mr-1 text-blue-600"></i>Flight Inc.</span>
+                            </div>
+                            <button class="text-blue-600 font-semibold hover:text-blue-800 transition-colors">Book <i
+                                    class="fa-solid fa-arrow-right ml-1"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 11 -->
+                <div class="destination-card interactive-card bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 shadow-sm"
+                    data-region="europe">
+                    <div class="relative h-64">
+                        <img src="https://images.unsplash.com/photo-1552832230-c0197dd311b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="Rome" class="w-full h-full object-cover">
+                        <div
+                            class="absolute top-4 right-4 bg-slate-900/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-bold text-slate-50 shadow-sm">
+                            <i class="fa-solid fa-star text-yellow-400 mr-1"></i> 4.9
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="text-2xl font-bold text-slate-50">Rome, Italy</h4>
+                            <span class="text-blue-600 font-bold bg-slate-800 px-3 py-1 rounded-lg">$749</span>
+                        </div>
+                        <p class="text-slate-400 mb-4 line-clamp-2">Step back in time at the Colosseum and experience
+                            the eternal city's history.</p>
+                        <hr class="border-slate-800 mb-4">
+                        <div class="flex justify-between items-center">
+                            <div class="flex text-slate-400 text-sm gap-4">
+                                <span><i class="fa-regular fa-clock mr-1 text-blue-600"></i>4 Days</span>
+                                <span><i class="fa-solid fa-utensils mr-1 text-blue-600"></i>Dining Inc.</span>
+                            </div>
+                            <button class="text-blue-600 font-semibold hover:text-blue-800 transition-colors">Book <i
+                                    class="fa-solid fa-arrow-right ml-1"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 12 -->
+                <div class="destination-card interactive-card bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 shadow-sm"
+                    data-region="europe">
+                    <div class="relative h-64">
+                        <img src="https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="Santorini" class="w-full h-full object-cover">
+                        <div
+                            class="absolute top-4 right-4 bg-slate-900/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-bold text-slate-50 shadow-sm">
+                            <i class="fa-solid fa-star text-yellow-400 mr-1"></i> 4.8
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="text-2xl font-bold text-slate-50">Santorini, Greece</h4>
+                            <span class="text-blue-600 font-bold bg-slate-800 px-3 py-1 rounded-lg">$1,099</span>
+                        </div>
+                        <p class="text-slate-400 mb-4 line-clamp-2">Marvel at volcanic cliffs and blue-domed churches
+                            overlooking the Aegean Sea.</p>
+                        <hr class="border-slate-800 mb-4">
+                        <div class="flex justify-between items-center">
+                            <div class="flex text-slate-400 text-sm gap-4">
+                                <span><i class="fa-regular fa-clock mr-1 text-blue-600"></i>6 Days</span>
+                                <span><i class="fa-solid fa-ship mr-1 text-blue-600"></i>Ferry Inc.</span>
+                            </div>
+                            <button class="text-blue-600 font-semibold hover:text-blue-800 transition-colors">Book <i
+                                    class="fa-solid fa-arrow-right ml-1"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 13 -->
+                <div class="destination-card interactive-card bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 shadow-sm"
+                    data-region="asia">
+                    <div class="relative h-64">
+                        <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="Kyoto" class="w-full h-full object-cover">
+                        <div
+                            class="absolute top-4 right-4 bg-slate-900/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-bold text-slate-50 shadow-sm">
+                            <i class="fa-solid fa-star text-yellow-400 mr-1"></i> 4.9
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="text-2xl font-bold text-slate-50">Kyoto, Japan</h4>
+                            <span class="text-blue-600 font-bold bg-slate-800 px-3 py-1 rounded-lg">$1,150</span>
+                        </div>
+                        <p class="text-slate-400 mb-4 line-clamp-2">Lose yourself in bamboo forests and ancient temples
+                            in Japan's cultural heart.</p>
+                        <hr class="border-slate-800 mb-4">
+                        <div class="flex justify-between items-center">
+                            <div class="flex text-slate-400 text-sm gap-4">
+                                <span><i class="fa-regular fa-clock mr-1 text-blue-600"></i>5 Days</span>
+                                <span><i class="fa-solid fa-leaf mr-1 text-blue-600"></i>Nature Inc.</span>
+                            </div>
+                            <button class="text-blue-600 font-semibold hover:text-blue-800 transition-colors">Book <i
+                                    class="fa-solid fa-arrow-right ml-1"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 14 -->
+                <div class="destination-card interactive-card bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 shadow-sm"
+                    data-region="asia">
+                    <div class="relative h-64">
+                        <img src="https://images.unsplash.com/photo-1589308078059-be1415eab4c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="Phuket" class="w-full h-full object-cover">
+                        <div
+                            class="absolute top-4 right-4 bg-slate-900/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-bold text-slate-50 shadow-sm">
+                            <i class="fa-solid fa-star text-yellow-400 mr-1"></i> 4.7
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="text-2xl font-bold text-slate-50">Phuket, Thailand</h4>
+                            <span class="text-blue-600 font-bold bg-slate-800 px-3 py-1 rounded-lg">$550</span>
+                        </div>
+                        <p class="text-slate-400 mb-4 line-clamp-2">Relax on white sand beaches and explore the stunning
+                            limestone karst landscapes.</p>
+                        <hr class="border-slate-800 mb-4">
+                        <div class="flex justify-between items-center">
+                            <div class="flex text-slate-400 text-sm gap-4">
+                                <span><i class="fa-regular fa-clock mr-1 text-blue-600"></i>6 Days</span>
+                                <span><i class="fa-solid fa-umbrella-beach mr-1 text-blue-600"></i>Beach Inc.</span>
+                            </div>
+                            <button class="text-blue-600 font-semibold hover:text-blue-800 transition-colors">Book <i
+                                    class="fa-solid fa-arrow-right ml-1"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 15 -->
+                <div class="destination-card interactive-card bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 shadow-sm"
+                    data-region="india">
+                    <div class="relative h-64">
+                        <img src="https://images.unsplash.com/photo-1561361513-2d000a50f0dc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="Varanasi" class="w-full h-full object-cover">
+                        <div
+                            class="absolute top-4 right-4 bg-slate-900/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-bold text-slate-50 shadow-sm">
+                            <i class="fa-solid fa-star text-yellow-400 mr-1"></i> 4.9
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="text-2xl font-bold text-slate-50">Varanasi, India</h4>
+                            <span class="text-blue-600 font-bold bg-slate-800 px-3 py-1 rounded-lg">$380</span>
+                        </div>
+                        <p class="text-slate-400 mb-4 line-clamp-2">Witness the mesmerizing Ganga Aarti and experience
+                            the spiritual essence of India.</p>
+                        <hr class="border-slate-800 mb-4">
+                        <div class="flex justify-between items-center">
+                            <div class="flex text-slate-400 text-sm gap-4">
+                                <span><i class="fa-regular fa-clock mr-1 text-blue-600"></i>3 Days</span>
+                                <span><i class="fa-solid fa-om mr-1 text-blue-600"></i>Spiritual Inc.</span>
+                            </div>
+                            <button class="text-blue-600 font-semibold hover:text-blue-800 transition-colors">Book <i
+                                    class="fa-solid fa-arrow-right ml-1"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 16 -->
+                <div class="destination-card interactive-card bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 shadow-sm"
+                    data-region="india">
+                    <div class="relative h-64">
+                        <img src="https://images.unsplash.com/photo-1581791534721-e599df4417f7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="Ladakh" class="w-full h-full object-cover">
+                        <div
+                            class="absolute top-4 right-4 bg-slate-900/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-bold text-slate-50 shadow-sm">
+                            <i class="fa-solid fa-star text-yellow-400 mr-1"></i> 5.0
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="text-2xl font-bold text-slate-50">Ladakh, India</h4>
+                            <span class="text-blue-600 font-bold bg-slate-800 px-3 py-1 rounded-lg">$850</span>
+                        </div>
+                        <p class="text-slate-400 mb-4 line-clamp-2">Traverse the high passes and serene lakes of the
+                            "Land of High Passes".</p>
+                        <hr class="border-slate-800 mb-4">
+                        <div class="flex justify-between items-center">
+                            <div class="flex text-slate-400 text-sm gap-4">
+                                <span><i class="fa-regular fa-clock mr-1 text-blue-600"></i>7 Days</span>
+                                <span><i class="fa-solid fa-mountain mr-1 text-blue-600"></i>Trek Inc.</span>
+                            </div>
+                            <button class="text-blue-600 font-semibold hover:text-blue-800 transition-colors">Book <i
+                                    class="fa-solid fa-arrow-right ml-1"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 17 -->
+                <div class="destination-card interactive-card bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 shadow-sm"
+                    data-region="americas">
+                    <div class="relative h-64">
+                        <img src="https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="New York" class="w-full h-full object-cover">
+                        <div
+                            class="absolute top-4 right-4 bg-slate-900/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-bold text-slate-50 shadow-sm">
+                            <i class="fa-solid fa-star text-yellow-400 mr-1"></i> 4.8
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="text-2xl font-bold text-slate-50">New York, USA</h4>
+                            <span class="text-blue-600 font-bold bg-slate-800 px-3 py-1 rounded-lg">$1,599</span>
+                        </div>
+                        <p class="text-slate-400 mb-4 line-clamp-2">Explore the Big Apple, from Central Park to the
+                            bright lights of Times Square.</p>
+                        <hr class="border-slate-800 mb-4">
+                        <div class="flex justify-between items-center">
+                            <div class="flex text-slate-400 text-sm gap-4">
+                                <span><i class="fa-regular fa-clock mr-1 text-blue-600"></i>5 Days</span>
+                                <span><i class="fa-solid fa-city mr-1 text-blue-600"></i>City Inc.</span>
+                            </div>
+                            <button class="text-blue-600 font-semibold hover:text-blue-800 transition-colors">Book <i
+                                    class="fa-solid fa-arrow-right ml-1"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 18 -->
+                <div class="destination-card interactive-card bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 shadow-sm"
+                    data-region="africa">
+                    <div class="relative h-64">
+                        <img src="https://images.unsplash.com/photo-1516426122078-c23e76319801?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="Serengeti" class="w-full h-full object-cover">
+                        <div
+                            class="absolute top-4 right-4 bg-slate-900/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-bold text-slate-50 shadow-sm">
+                            <i class="fa-solid fa-star text-yellow-400 mr-1"></i> 5.0
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="text-2xl font-bold text-slate-50">Serengeti, Tanzania</h4>
+                            <span class="text-blue-600 font-bold bg-slate-800 px-3 py-1 rounded-lg">$1,899</span>
+                        </div>
+                        <p class="text-slate-400 mb-4 line-clamp-2">Experience the thrill of a safari and witness the
+                            great wildebeest migration.</p>
+                        <hr class="border-slate-800 mb-4">
+                        <div class="flex justify-between items-center">
+                            <div class="flex text-slate-400 text-sm gap-4">
+                                <span><i class="fa-regular fa-clock mr-1 text-blue-600"></i>8 Days</span>
+                                <span><i class="fa-solid fa-binoculars mr-1 text-blue-600"></i>Wild Inc.</span>
+                            </div>
+                            <button class="text-blue-600 font-semibold hover:text-blue-800 transition-colors">Book <i
+                                    class="fa-solid fa-arrow-right ml-1"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Load More Interaction -->
+            <div id="load-more-container" class="flex justify-center load-more-container">
+                <button id="load-more-btn" class="load-more-btn flex items-center group">
+                    <span>Explore More Adventures</span>
+                    <i class="fa-solid fa-chevron-down ml-3 group-hover:translate-y-1 transition-transform"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section id="reviews" class="py-24 bg-slate-900 relative overflow-hidden">
+        <div
+            class="absolute -top-24 -left-24 w-96 h-96 bg-slate-800 rounded-full mix-blend-multiply filter blur-3xl opacity-50 z-0">
+        </div>
+        <div
+            class="absolute -bottom-24 -right-24 w-96 h-96 bg-indigo-900/30 rounded-full mix-blend-multiply filter blur-3xl opacity-50 z-0">
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-sm font-bold text-blue-600 tracking-wide uppercase">Testimonials</h2>
+                <h3 class="mt-2 text-4xl font-extrabold text-slate-50 sm:text-5xl">What Our Travelers Say</h3>
+                <p class="mt-4 text-xl text-slate-400">Don't just take our word for it. Read the stories of our happy
+                    adventurers.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Review 1 -->
+                <div
+                    class="bg-slate-950 rounded-2xl p-8 border border-slate-800 shadow-sm relative h-full flex flex-col">
+                    <div class="text-blue-500 mb-4 flex gap-1 text-sm">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-slate-300 mb-6 italic flex-grow">"AntiGravity Travels managed everything flawlessly!
+                        Our trip to the Swiss Alps was completely stress-free, and every hotel they picked was a dream."
+                    </p>
+                    <div class="flex items-center gap-4 mt-auto">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80"
+                            alt="Sarah J." class="w-12 h-12 rounded-full object-cover">
+                        <div>
+                            <h4 class="font-bold text-slate-50 text-sm">Sarah Jenkins</h4>
+                            <p class="text-xs text-slate-400">Traveled to Switzerland</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review 2 -->
+                <div
+                    class="bg-slate-950 rounded-2xl p-8 border border-slate-800 shadow-sm relative h-full flex flex-col">
+                    <div class="text-blue-500 mb-4 flex gap-1 text-sm">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star-half-stroke"></i>
+                    </div>
+                    <p class="text-slate-300 mb-6 italic flex-grow">"The support team is incredible. Our flight was
+                        delayed, but they instantly re-booked our transfer and hotel so we didn't miss a beat. Unmatched
+                        service!"</p>
+                    <div class="flex items-center gap-4 mt-auto">
+                        <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80"
+                            alt="Michael C." class="w-12 h-12 rounded-full object-cover">
+                        <div>
+                            <h4 class="font-bold text-slate-50 text-sm">Michael Chang</h4>
+                            <p class="text-xs text-slate-400">Traveled to Japan</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review 3 -->
+                <div
+                    class="bg-slate-950 rounded-2xl p-8 border border-slate-800 shadow-sm relative h-full flex flex-col">
+                    <div class="text-blue-500 mb-4 flex gap-1 text-sm">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-slate-300 mb-6 italic flex-grow">"A customized itinerary that hit all the hidden
+                        gems. We got to see the real Bali, away from the typical tourist traps. Will definitely book
+                        again!"</p>
+                    <div class="flex items-center gap-4 mt-auto">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80"
+                            alt="Emma L." class="w-12 h-12 rounded-full object-cover">
+                        <div>
+                            <h4 class="font-bold text-slate-50 text-sm">Emma Lawson</h4>
+                            <p class="text-xs text-slate-400">Traveled to Indonesia</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chatbot Toggle Button -->
+    <button id="chat-toggle"
+        class="fixed bottom-6 right-6 bg-blue-600 hover:bg-blue-700 text-white w-16 h-16 rounded-full shadow-2xl flex items-center justify-center animate-float z-50 transition-colors focus:outline-none">
+        <i class="fa-solid fa-comment-dots text-3xl"></i>
+    </button>
+
+    <!-- Chatbot Widget UI -->
+    <div id="chat-widget"
+        class="fixed bottom-6 right-6 w-80 sm:w-96 bg-slate-900 rounded-2xl shadow-2xl z-50 flex-col overflow-hidden border border-slate-700 hidden-custom">
+        <!-- Header -->
+        <div
+            class="bg-gradient-to-r from-blue-600 to-indigo-600 p-4 text-white flex justify-between items-center shadow-md">
+            <div class="flex items-center">
+                <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center mr-3">
+                    <i class="fa-solid fa-robot text-xl"></i>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg">Travel Assistant</h4>
+                    <span class="text-xs text-blue-100 flex items-center"><span
+                            class="w-2 h-2 bg-green-400 rounded-full mr-1"></span> Online</span>
+                </div>
+            </div>
+            <button id="close-chat" class="text-white/80 hover:text-white focus:outline-none">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+        </div>
+
+        <!-- Messages Area -->
+        <div id="chat-messages" class="p-4 h-80 overflow-y-auto bg-slate-950 chat-messages">
+            <!-- Initial Bot Message -->
+            <div class="mb-4 max-w-[80%]">
+                <div
+                    class="bg-slate-800 text-slate-200 rounded-t-xl rounded-br-xl p-3 shadow-sm text-sm border border-slate-700">
+                    Hi there! Welcome to AntiGravity Travels. Want to know the best places to visit, or check our
+                    prices?
+                </div>
+            </div>
+        </div>
+
+        <!-- Input Area -->
+        <div class="p-4 bg-slate-900 border-t border-slate-800">
+            <div
+                class="flex items-center bg-slate-950 rounded-full border border-slate-700 px-4 py-2 focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500 transition-shadow">
+                <input type="text" id="chat-input" placeholder="Type your query..."
+                    class="flex-grow bg-transparent border-none focus:outline-none text-sm text-slate-200 placeholder-gray-400">
+                <button id="send-btn" class="text-blue-600 hover:text-blue-800 focus:outline-none ml-2">
+                    <i class="fa-solid fa-paper-plane text-lg"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-400">
+            <p>&copy; 2026 AntiGravity Travels. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Auth Modal -->
+    <div id="auth-modal"
+        class="fixed inset-0 z-[100] flex items-center justify-center bg-gray-900/40 backdrop-blur-sm hidden-custom w-full h-full">
+        <!-- Modal Content -->
+        <div
+            class="bg-slate-900 rounded-3xl shadow-2xl overflow-y-auto max-h-[90vh] max-w-md w-full mx-4 interactive-card relative custom-scrollbar">
+
+            <!-- Close Button -->
+            <button id="close-auth"
+                class="absolute top-4 right-4 text-gray-400 hover:text-slate-300 focus:outline-none z-10 transition-colors">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+
+            <div class="p-8">
+                <!-- Branding -->
+                <div class="text-center mb-6">
+                    <a href="#"
+                        class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 tracking-tight flex items-center justify-center">
+                        <i class="fa-solid fa-plane-up mr-2 text-blue-600"></i>AntiGravity Travels
+                    </a>
+                </div>
+
+                <!-- Toggle Tabs -->
+                <div class="flex bg-slate-800 rounded-full p-1 mb-8">
+                    <button id="tab-login"
+                        class="flex-1 py-2 text-sm font-semibold rounded-full text-blue-600 bg-slate-900 shadow-sm transition-all focus:outline-none">Log
+                        In</button>
+                    <button id="tab-signup"
+                        class="flex-1 py-2 text-sm font-semibold rounded-full text-slate-400 hover:text-slate-300 transition-all focus:outline-none">Sign
+                        Up</button>
+                </div>
+
+                <!-- Log In Form -->
+                <form id="form-login" class="space-y-4">
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-slate-300 mb-1">Email address</label>
+                        <input type="email" id="email"
+                            class="w-full px-4 py-2 border border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-slate-950 focus:bg-slate-900 transition-all outline-none"
+                            placeholder="you@example.com" required>
+                    </div>
+                    <div>
+                        <div class="flex items-center justify-between mb-1">
+                            <label for="password" class="block text-sm font-medium text-slate-300">Password</label>
+                            <a href="#" class="text-xs text-blue-600 hover:underline">Forgot password?</a>
+                        </div>
+                        <input type="password" id="password"
+                            class="w-full px-4 py-2 border border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-slate-950 focus:bg-slate-900 transition-all outline-none"
+                            placeholder="••••••••" required>
+                    </div>
+                    <button type="submit"
+                        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-xl shadow-lg shadow-blue-500/30 transition-all mt-6">
+                        Log In
+                    </button>
+                </form>
+
+                <!-- Sign Up Form (Hidden by default) -->
+                <form id="form-signup" class="space-y-4 hidden">
+                    <div>
+                        <label for="name-signup" class="block text-sm font-medium text-slate-300 mb-1">Full Name</label>
+                        <input type="text" id="name-signup"
+                            class="w-full px-4 py-2 border border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-slate-950 focus:bg-slate-900 transition-all outline-none"
+                            placeholder="John Doe" required>
+                    </div>
+                    <div>
+                        <label for="phone-signup" class="block text-sm font-medium text-slate-300 mb-1">Phone Number</label>
+                        <input type="tel" id="phone-signup"
+                            class="w-full px-4 py-2 border border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-slate-950 focus:bg-slate-900 transition-all outline-none"
+                            placeholder="+1 234 567 890" required>
+                    </div>
+                    <div>
+                        <label for="email-signup" class="block text-sm font-medium text-slate-300 mb-1">Email
+                            address</label>
+                        <input type="email" id="email-signup"
+                            class="w-full px-4 py-2 border border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-slate-950 focus:bg-slate-900 transition-all outline-none"
+                            placeholder="you@example.com" required>
+                    </div>
+                    <div>
+                        <label for="password-signup" class="block text-sm font-medium text-slate-300 mb-1">Create
+                            Password</label>
+                        <input type="password" id="password-signup"
+                            class="w-full px-4 py-2 border border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-slate-950 focus:bg-slate-900 transition-all outline-none"
+                            placeholder="••••••••" required>
+                    </div>
+                    <button type="submit"
+                        class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-4 rounded-xl shadow-lg shadow-indigo-500/30 transition-all mt-6">
+                        Create Account
+                    </button>
+                </form>
+
+                <div class="mt-8 text-center text-xs text-slate-400">
+                    By confirming, you agree to our <a href="#" class="text-blue-600 hover:underline">Terms of
+                        Service</a> and <a href="#" class="text-blue-600 hover:underline">Privacy Policy</a>.
+                </div>
+            </div>
+
+            <!-- Bottom decorative bar -->
+            <div class="h-2 w-full bg-gradient-to-r from-blue-600 to-indigo-600"></div>
+        </div>
+    </div>
+
+    <!-- Booking Modal -->
+    <div id="booking-modal"
+        class="fixed inset-0 z-[100] flex items-center justify-center bg-gray-900/40 backdrop-blur-sm hidden-custom w-full h-full">
+        <!-- Modal Content -->
+        <div
+            class="bg-slate-900 rounded-3xl shadow-2xl overflow-y-auto max-h-[85vh] max-w-lg w-full mx-4 interactive-card relative custom-scrollbar">
+            <!-- Close Button -->
+            <button id="close-booking"
+                class="absolute top-4 right-4 text-gray-400 hover:text-slate-300 focus:outline-none z-10 transition-colors">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+            <div class="p-6">
+                <!-- Branding -->
+                <div class="text-center mb-6 relative">
+                    <div class="flex items-center justify-center mb-2">
+                        <!-- Simple dashed path emulation -->
+                        <div
+                            class="w-24 h-[2px] border-t-2 border-dashed border-indigo-400 opacity-50 mr-2 -translate-y-1">
+                        </div>
+                        <i class="fa-solid fa-plane text-2xl text-indigo-500 -rotate-12"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-slate-50">Travel Agency Booking Form</h3>
+                </div>
+
+                <form id="form-booking">
+                    <!-- Registration Details -->
+                    <div id="registration-details-section" class="space-y-5">
+                        <input type="hidden" id="dest-input" value="">
+
+                        <!-- Traveler Information Header -->
+                        <div
+                            class="bg-indigo-600/20 px-4 py-3 rounded-lg text-indigo-300 font-semibold mb-4 flex justify-between items-center border border-indigo-500/20">
+                            <span>Traveler Information</span>
+                            <div class="bg-indigo-500/30 rounded-full w-6 h-6 flex items-center justify-center">
+                                <i class="fa-solid fa-chevron-down text-xs"></i>
+                            </div>
+                        </div>
+
+                        <!-- Row 1 -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-semibold text-slate-300 mb-2">Traveler #1</label>
+                                <div class="flex gap-2">
+                                    <div class="w-1/2">
+                                        <input type="text" id="name-booking"
+                                            class="w-full px-3 py-2 border border-slate-700 rounded-md focus:ring-2 focus:ring-indigo-500 bg-slate-950 text-slate-200 outline-none transition-all text-sm"
+                                            required>
+                                        <p class="text-[11px] text-slate-500 mt-1">First Name</p>
+                                    </div>
+                                    <div class="w-1/2">
+                                        <input type="text" id="lastname-booking"
+                                            class="w-full px-3 py-2 border border-slate-700 rounded-md focus:ring-2 focus:ring-indigo-500 bg-slate-950 text-slate-200 outline-none transition-all text-sm"
+                                            required>
+                                        <p class="text-[11px] text-slate-500 mt-1">Last Name</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <label for="dob" class="block text-sm font-semibold text-slate-300 mb-2">Date of
+                                    Birth</label>
+                                <div>
+                                    <input type="text" id="dob"
+                                        class="w-full px-3 py-2 border border-slate-700 rounded-md focus:ring-2 focus:ring-indigo-500 bg-slate-950 text-slate-200 outline-none transition-all text-sm"
+                                        placeholder="MM-DD-YYYY" required>
+                                    <p class="text-[11px] text-slate-500 mt-1">Date</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Row 2 -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label for="email-booking"
+                                    class="block text-sm font-semibold text-slate-300 mb-2">E-mail</label>
+                                <div>
+                                    <input type="email" id="email-booking"
+                                        class="w-full px-3 py-2 border border-slate-700 rounded-md focus:ring-2 focus:ring-indigo-500 bg-slate-950 text-slate-200 outline-none transition-all text-sm"
+                                        placeholder="example@example.com" required>
+                                </div>
+                            </div>
+                            <div>
+                                <label for="phone-booking" class="block text-sm font-semibold text-slate-300 mb-2">Phone
+                                    Number</label>
+                                <div>
+                                    <input type="tel" id="phone-booking"
+                                        class="w-full px-3 py-2 border border-slate-700 rounded-md focus:ring-2 focus:ring-indigo-500 bg-slate-950 text-slate-200 outline-none transition-all text-sm"
+                                        placeholder="(000) 000-0000" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Row 2.5: Travel Dates & Travelers -->
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <div>
+                                <label for="travel-date" class="block text-sm font-semibold text-slate-300 mb-2">Travel Date</label>
+                                <input type="date" id="travel-date"
+                                    class="w-full px-3 py-2 border border-slate-700 rounded-md focus:ring-2 focus:ring-indigo-500 bg-slate-950 text-slate-200 outline-none transition-all text-sm"
+                                    required>
+                            </div>
+                            <div>
+                                <label for="return-date" class="block text-sm font-semibold text-slate-300 mb-2">Return Date</label>
+                                <input type="date" id="return-date"
+                                    class="w-full px-3 py-2 border border-slate-700 rounded-md focus:ring-2 focus:ring-indigo-500 bg-slate-950 text-slate-200 outline-none transition-all text-sm"
+                                    required>
+                            </div>
+                            <div>
+                                <label for="travelers-count" class="block text-sm font-semibold text-slate-300 mb-2">Travelers</label>
+                                <input type="number" id="travelers-count" min="1" max="10" value="1"
+                                    class="w-full px-3 py-2 border border-slate-700 rounded-md focus:ring-2 focus:ring-indigo-500 bg-slate-950 text-slate-200 outline-none transition-all text-sm"
+                                    required>
+                            </div>
+                        </div>
+
+                        <!-- Row 3 -->
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-300 mb-2">Address</label>
+                            <div class="space-y-3">
+                                <div>
+                                    <input type="text" id="street-address"
+                                        class="w-full px-3 py-2 border border-slate-700 rounded-md focus:ring-2 focus:ring-indigo-500 bg-slate-950 text-slate-200 outline-none transition-all text-sm"
+                                        required>
+                                    <p class="text-[11px] text-slate-500 mt-1">Street Address</p>
+                                </div>
+                                <div>
+                                    <input type="text" id="address-line-2"
+                                        class="w-full px-3 py-2 border border-slate-700 rounded-md focus:ring-2 focus:ring-indigo-500 bg-slate-950 text-slate-200 outline-none transition-all text-sm">
+                                    <p class="text-[11px] text-slate-500 mt-1">Street Address Line 2</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Payment Toggle Button -->
+                    <div id="payment-toggle-container" class="mt-8">
+                        <button type="button" id="show-payment-btn"
+                            class="w-full py-3 px-4 border border-blue-600/30 text-blue-500 rounded-xl hover:bg-blue-600/10 transition-all font-semibold text-sm flex items-center justify-center">
+                            <i class="fa-solid fa-credit-card mr-2 text-xs"></i> Select Payment Method
+                        </button>
+                    </div>
+
+                    <!-- Payment Section (Hidden by default) -->
+                    <div id="payment-options-wrapper" class="hidden-payment">
+                        <div class="mt-6 border-t border-slate-800 pt-6">
+                            <label class="block text-sm font-medium text-slate-300 mb-3 text-center">Payment
+                                Method</label>
+                            <div class="grid grid-cols-2 gap-2 sm:grid-cols-4 mb-4">
+                                <label class="payment-option-card relative cursor-pointer h-full">
+                                    <input type="radio" name="payment-method" value="upi" checked
+                                        class="sr-only payment-radio">
+                                    <div
+                                        class="payment-option-inner h-full flex flex-col items-center justify-center rounded-xl border border-slate-700 bg-slate-950/50 hover:bg-slate-900 transition-all py-3">
+                                        <i class="fa-brands fa-google-pay text-lg mb-1 text-slate-400"></i>
+                                        <span
+                                            class="text-[9px] font-bold text-slate-400 uppercase tracking-widest text-center mt-1">UPI</span>
+                                    </div>
+                                </label>
+                                <label class="payment-option-card relative cursor-pointer h-full">
+                                    <input type="radio" name="payment-method" value="card"
+                                        class="sr-only payment-radio">
+                                    <div
+                                        class="payment-option-inner h-full flex flex-col items-center justify-center rounded-xl border border-slate-700 bg-slate-950/50 hover:bg-slate-900 transition-all py-3">
+                                        <i class="fa-solid fa-credit-card text-lg mb-1 text-slate-400"></i>
+                                        <span
+                                            class="text-[9px] font-bold text-slate-400 uppercase tracking-widest text-center mt-1">Card</span>
+                                    </div>
+                                </label>
+                                <label class="payment-option-card relative cursor-pointer h-full">
+                                    <input type="radio" name="payment-method" value="netbanking"
+                                        class="sr-only payment-radio">
+                                    <div
+                                        class="payment-option-inner h-full flex flex-col items-center justify-center rounded-xl border border-slate-700 bg-slate-950/50 hover:bg-slate-900 transition-all py-3">
+                                        <i class="fa-solid fa-building-columns text-lg mb-1 text-slate-400"></i>
+                                        <span
+                                            class="text-[9px] font-bold text-slate-400 uppercase tracking-widest text-center mt-1">Net Banking</span>
+                                    </div>
+                                </label>
+                                <label class="payment-option-card relative cursor-pointer h-full">
+                                    <input type="radio" name="payment-method" value="wallet"
+                                        class="sr-only payment-radio">
+                                    <div
+                                        class="payment-option-inner h-full flex flex-col items-center justify-center rounded-xl border border-slate-700 bg-slate-950/50 hover:bg-slate-900 transition-all py-3">
+                                        <i class="fa-solid fa-wallet text-lg mb-1 text-slate-400"></i>
+                                        <span
+                                            class="text-[9px] font-bold text-slate-400 uppercase tracking-widest text-center mt-1">Wallet</span>
+                                    </div>
+                                </label>
+                            </div>
+
+                            <!-- Dynamic Payment Details Sections -->
+                            <div id="payment-details-container" class="mt-4">
+                                <!-- UPI Section -->
+                                <div id="upi-details-section" class="payment-detail-section space-y-4">
+                                    <div>
+                                        <label for="upi-id" class="block text-xs font-medium text-slate-400 mb-1 tracking-wide uppercase">UPI ID</label>
+                                        <div class="relative">
+                                            <input type="text" id="upi-id"
+                                                class="w-full px-4 py-2 pl-10 border border-slate-700 rounded-xl bg-slate-950 text-slate-200 text-sm focus:ring-1 focus:ring-blue-500 outline-none"
+                                                placeholder="username@bankid">
+                                            <i class="fa-solid fa-mobile-screen absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 text-xs"></i>
+                                        </div>
+                                        <p class="text-[10px] text-slate-500 mt-2">Enter your VPA / UPI ID to receive a payment request.</p>
+                                    </div>
+                                </div>
+
+                                <!-- Card Section -->
+                                <div id="card-details-section" class="payment-detail-section space-y-4 hidden-payment">
+                                    <div>
+                                        <label for="card-num"
+                                            class="block text-xs font-medium text-slate-400 mb-1 tracking-wide uppercase">Card
+                                            Number</label>
+                                        <div class="relative">
+                                            <input type="text" id="card-num"
+                                                class="w-full px-4 py-2 pl-10 border border-slate-700 rounded-xl bg-slate-950 text-slate-200 text-sm focus:ring-1 focus:ring-blue-500 outline-none"
+                                                placeholder="0000 0000 0000 0000">
+                                            <i
+                                                class="fa-solid fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 text-xs"></i>
+                                        </div>
+                                    </div>
+                                    <div class="flex gap-4">
+                                        <div class="flex-1">
+                                            <label for="card-expiry"
+                                                class="block text-xs font-medium text-slate-400 mb-1 tracking-wide uppercase">Expiry</label>
+                                            <input type="text" id="card-expiry"
+                                                class="w-full px-4 py-2 border border-slate-700 rounded-xl bg-slate-950 text-slate-200 text-sm focus:ring-1 focus:ring-blue-500 outline-none"
+                                                placeholder="MM/YY">
+                                        </div>
+                                        <div class="w-24">
+                                            <label for="card-cvv"
+                                                class="block text-xs font-medium text-slate-400 mb-1 tracking-wide uppercase">CVV</label>
+                                            <input type="password" id="card-cvv"
+                                                class="w-full px-4 py-2 border border-slate-700 rounded-xl bg-slate-950 text-slate-200 text-sm focus:ring-1 focus:ring-blue-500 outline-none"
+                                                placeholder="***">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Net Banking Section -->
+                                <div id="netbanking-details-section" class="payment-detail-section space-y-4 hidden-payment">
+                                    <div>
+                                        <label for="bank-select" class="block text-xs font-medium text-slate-400 mb-1 tracking-wide uppercase">Select Bank</label>
+                                        <select id="bank-select" class="w-full px-4 py-2 border border-slate-700 rounded-xl bg-slate-950 text-slate-200 text-sm focus:ring-1 focus:ring-blue-500 outline-none">
+                                            <option value="">-- Choose Your Bank --</option>
+                                            <option value="sbi">State Bank of India</option>
+                                            <option value="hdfc">HDFC Bank</option>
+                                            <option value="icici">ICICI Bank</option>
+                                            <option value="axis">Axis Bank</option>
+                                            <option value="pnb">Punjab National Bank</option>
+                                        </select>
+                                    </div>
+                                    <p class="text-[10px] text-slate-500">You will be redirected to your bank's website to complete the transaction.</p>
+                                </div>
+
+                                <!-- Wallet Section -->
+                                <div id="wallet-details-section" class="payment-detail-section space-y-4 hidden-payment">
+                                    <div>
+                                        <label for="wallet-select" class="block text-xs font-medium text-slate-400 mb-1 tracking-wide uppercase">Select Wallet</label>
+                                        <select id="wallet-select" class="w-full px-4 py-2 border border-slate-700 rounded-xl bg-slate-950 text-slate-200 text-sm focus:ring-1 focus:ring-blue-500 outline-none">
+                                            <option value="">-- Choose Wallet --</option>
+                                            <option value="paytm">Paytm</option>
+                                            <option value="phonepe">PhonePe</option>
+                                            <option value="amazon">Amazon Pay</option>
+                                            <option value="mobikwik">MobiKwik</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label for="wallet-id" class="block text-xs font-medium text-slate-400 mb-1 tracking-wide uppercase">Mobile / Wallet Number</label>
+                                        <input type="tel" id="wallet-id"
+                                            class="w-full px-4 py-2 border border-slate-700 rounded-xl bg-slate-950 text-slate-200 text-sm focus:ring-1 focus:ring-blue-500 outline-none"
+                                            placeholder="Enter registered mobile number">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit"
+                            class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-xl shadow-lg shadow-blue-500/30 transition-all mt-8 flex justify-center items-center">
+                            Pay and Book Now <i class="fa-solid fa-check ml-2"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <!-- Bottom decorative bar -->
+            <div class="h-2 w-full bg-gradient-to-r from-blue-600 to-indigo-600"></div>
+        </div>
+    </div>
+
+    <!-- Custom JS -->
+    <script src="script.js"></script>
+</body>
+
+</html>

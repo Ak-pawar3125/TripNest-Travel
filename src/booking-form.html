@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Your Adventure | AntiGravity Travels</title>
+    <link rel="stylesheet" href="booking-form-styles.css">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="booking-container">
+        <div class="text-center" style="margin-bottom: 2rem;">
+            <div style="display: flex; justify-content: center; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                <div style="flex: 1; height: 2px; border-top: 2px dashed rgba(59, 130, 246, 0.5);"></div>
+                <i class="fa-solid fa-plane" style="font-size: 2rem; color: var(--primary); transform: rotate(-15deg);"></i>
+            </div>
+            <h1 style="font-size: 1.8rem; margin-bottom: 0.5rem; background: linear-gradient(135deg, #fff, #94a3b8); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">Travel Agency Booking Form</h1>
+        </div>
+
+        <form id="booking-form">
+            <!-- Traveler Information Banner -->
+            <div style="background: rgba(59, 130, 246, 0.2); padding: 1rem 1.5rem; border-radius: 1rem; display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; border: 1px solid rgba(59, 130, 246, 0.3);">
+                <span style="font-weight: 600; color: #60a5fa;">Traveler Information</span>
+                <div style="background: rgba(59, 130, 246, 0.4); width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                    <i class="fa-solid fa-chevron-down" style="font-size: 0.7rem; color: #fff;"></i>
+                </div>
+            </div>
+
+            <!-- Row 1 -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+                <!-- Traveler #1 -->
+                <div>
+                    <label style="font-weight: 600; margin-bottom: 0.75rem; color: var(--text-primary);">Traveler #1</label>
+                    <div style="display: flex; gap: 0.75rem;">
+                        <div style="flex: 1;">
+                            <input type="text" id="first-name" required style="margin-bottom: 0.25rem;">
+                            <span style="font-size: 0.75rem; color: var(--text-secondary);">First Name</span>
+                        </div>
+                        <div style="flex: 1;">
+                            <input type="text" id="last-name" required style="margin-bottom: 0.25rem;">
+                            <span style="font-size: 0.75rem; color: var(--text-secondary);">Last Name</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Date of Birth -->
+                <div>
+                    <label style="font-weight: 600; margin-bottom: 0.75rem; color: var(--text-primary);">Date of Birth</label>
+                    <div>
+                        <input type="text" id="dob" placeholder="MM-DD-YYYY" required style="margin-bottom: 0.25rem;">
+                        <span style="font-size: 0.75rem; color: var(--text-secondary);">Date</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Row 2 -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+                <!-- Email -->
+                <div>
+                    <label style="font-weight: 600; margin-bottom: 0.75rem; color: var(--text-primary);">E-mail</label>
+                    <div>
+                        <input type="email" id="email" placeholder="example@example.com" required style="margin-bottom: 0.25rem;">
+                        <span style="font-size: 0.75rem; color: transparent;">Spacer</span>
+                    </div>
+                </div>
+                <!-- Phone -->
+                <div>
+                    <label style="font-weight: 600; margin-bottom: 0.75rem; color: var(--text-primary);">Phone Number</label>
+                    <div>
+                        <input type="tel" id="phone" placeholder="(000) 000-0000" required style="margin-bottom: 0.25rem;">
+                        <span style="font-size: 0.75rem; color: var(--text-secondary);">Please enter a valid phone number.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Row 3: Address -->
+            <div style="margin-bottom: 1.5rem;">
+                <label style="font-weight: 600; margin-bottom: 0.75rem; color: var(--text-primary);">Address</label>
+                <div style="margin-bottom: 1rem;">
+                    <input type="text" id="street-address" required style="margin-bottom: 0.25rem;">
+                    <span style="font-size: 0.75rem; color: var(--text-secondary);">Street Address</span>
+                </div>
+                <div>
+                    <input type="text" id="address-line-2" style="margin-bottom: 0.25rem;">
+                    <span style="font-size: 0.75rem; color: var(--text-secondary);">Street Address Line 2</span>
+                </div>
+            </div>
+
+            <!-- 2. Payment Section -->
+            <div class="payment-selection">
+                <label>Choose Payment Method</label>
+                <div class="payment-grid">
+                    <label class="payment-card">
+                        <input type="radio" name="payment" value="card">
+                        <div class="payment-card-inner">
+                            <i class="fa-solid fa-credit-card"></i>
+                            <span class="text-xs uppercase tracking-tighter">Card</span>
+                        </div>
+                    </label>
+                    <label class="payment-card">
+                        <input type="radio" name="payment" value="upi">
+                        <div class="payment-card-inner">
+                            <i class="fa-solid fa-mobile-screen-button"></i>
+                            <span class="text-xs uppercase tracking-tighter">UPI</span>
+                        </div>
+                    </label>
+                    <label class="payment-card">
+                        <input type="radio" name="payment" value="netbanking">
+                        <div class="payment-card-inner">
+                            <i class="fa-solid fa-building-columns"></i>
+                            <span class="text-xs uppercase tracking-tighter">Net Banking</span>
+                        </div>
+                    </label>
+                </div>
+
+                <!-- Dynamic Payment Fields: Credit/Debit Card -->
+                <div id="fields-card" class="dynamic-payment-fields">
+                    <div class="form-group">
+                        <label for="card-holder">Card Holder Name</label>
+                        <input type="text" id="card-holder" placeholder="Name on card">
+                    </div>
+                    <div class="form-group">
+                        <label for="card-num">Card Number</label>
+                        <input type="text" id="card-num" placeholder="0000 0000 0000 0000">
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                        <div class="form-group">
+                            <label for="expiry">Expiry Date</label>
+                            <input type="text" id="expiry" placeholder="MM/YY">
+                        </div>
+                        <div class="form-group">
+                            <label for="cvv">CVV</label>
+                            <input type="password" id="cvv" placeholder="***">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dynamic Payment Fields: UPI -->
+                <div id="fields-upi" class="dynamic-payment-fields">
+                    <div class="form-group">
+                        <label for="upi-id">UPI ID</label>
+                        <input type="text" id="upi-id" placeholder="example@upi">
+                    </div>
+                </div>
+
+                <!-- Dynamic Payment Fields: Net Banking -->
+                <div id="fields-netbanking" class="dynamic-payment-fields">
+                    <div class="form-group">
+                        <label for="bank-name">Select Your Bank</label>
+                        <select id="bank-name">
+                            <option value="" disabled selected>Select Bank</option>
+                            <option value="HDFC">HDFC Bank</option>
+                            <option value="SBI">State Bank of India</option>
+                            <option value="ICICI">ICICI Bank</option>
+                            <option value="Axis">Axis Bank</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. Form Buttons -->
+            <div class="btn-container">
+                <button type="button" id="reset-btn" class="btn-secondary">Reset</button>
+                <button type="submit" class="btn-primary">Proceed to Summary</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Booking Summary Modal -->
+    <div id="summary-modal" class="modal">
+        <div class="modal-content">
+            <h2 class="modal-title">Booking Summary</h2>
+            <div id="summary-details">
+                <!-- Summary items will be injected here -->
+            </div>
+            <div class="btn-container">
+                <button id="cancel-summary" class="btn-secondary">Edit Details</button>
+                <button id="confirm-booking" class="btn-primary">Confirm & Pay</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="modal">
+        <div class="modal-content text-center">
+            <div class="success-icon">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            <h2 class="modal-title">Booking Successful!</h2>
+            <p class="subtitle" style="text-align: center;">Your adventure has been reserved. Check your email for details.</p>
+            <button id="close-success" class="btn-primary" style="width: 100%; margin-top: 1rem;">Back to Home</button>
+        </div>
+    </div>
+
+    <script src="booking-form-script.js"></script>
+</body>
+</html>
