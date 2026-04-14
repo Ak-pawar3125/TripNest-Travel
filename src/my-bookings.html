@@ -13,7 +13,6 @@
 
 <body class="bg-slate-950 text-slate-200 antialiased min-h-screen selection:bg-blue-300">
 
-    <!-- Navigation Bar (Simplified) -->
     <nav class="fixed w-full z-50 glass transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
@@ -37,7 +36,6 @@
         </div>
 
         <div id="bookings-container" class="grid grid-cols-1 gap-6">
-            <!-- Loading State -->
             <div class="flex flex-col items-center justify-center py-20 text-slate-500">
                 <i class="fa-solid fa-circle-notch fa-spin text-4xl mb-4"></i>
                 <p>Retrieving your bookings...</p>
@@ -45,7 +43,6 @@
         </div>
     </main>
 
-    <!-- Footer -->
     <footer class="bg-gray-900 text-gray-400 py-12 border-t border-slate-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <p>&copy; 2026 TripNest Travels. All rights reserved.</p>
@@ -55,24 +52,44 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const container = document.getElementById('bookings-container');
-            
-            async function fetchBookings() {
-                try {
-                    const response = await fetch('/api/bookings');
-                    const data = await response.json();
 
-                    if (!data.success) {
-                        if (response.status === 401) {
-                            window.location.href = 'index.html';
-                            return;
-                        }
-                        throw new Error(data.message);
+            function getCurrentUser() {
+                return JSON.parse(localStorage.getItem('tripnestCurrentUser')) || null;
+            }
+
+            function getBookings() {
+                return JSON.parse(localStorage.getItem('tripnestBookings')) || [];
+            }
+
+            function saveBookings(bookings) {
+                localStorage.setItem('tripnestBookings', JSON.stringify(bookings));
+            }
+
+            function fetchBookings() {
+                try {
+                    const currentUser = getCurrentUser();
+
+                    if (!currentUser) {
+                        alert('Please login first.');
+                        window.location.href = 'index.html';
+                        return;
                     }
 
-                    renderBookings(data.bookings);
+                    const allBookings = getBookings();
+
+                    const userBookings = allBookings
+                        .filter(booking => booking.userEmail === currentUser.email)
+                        .sort((a, b) => new Date(b.bookedAt) - new Date(a.bookedAt));
+
+                    renderBookings(userBookings);
                 } catch (err) {
                     console.error('Error:', err);
-                    container.innerHTML = `<div class="text-center py-20 text-red-500"><i class="fa-solid fa-triangle-exclamation text-4xl mb-4"></i><p>Failed to load bookings. Please try again later.</p></div>`;
+                    container.innerHTML = `
+                        <div class="text-center py-20 text-red-500">
+                            <i class="fa-solid fa-triangle-exclamation text-4xl mb-4"></i>
+                            <p>Failed to load bookings. Please try again later.</p>
+                        </div>
+                    `;
                 }
             }
 
@@ -94,25 +111,29 @@
                 }
 
                 container.innerHTML = '';
+
                 bookings.forEach(booking => {
                     const card = document.createElement('div');
                     card.className = 'bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-800 shadow-xl flex flex-col sm:flex-row gap-6 items-center sm:items-start transition-all hover:border-slate-700';
+
                     const isCancelled = booking.bookingStatus === 'Cancelled';
+                    const bookingId = booking.bookingId || booking._id || 'N/A';
 
                     card.innerHTML = `
                         <div class="w-16 h-16 ${isCancelled ? 'bg-slate-800 text-slate-600' : 'bg-blue-600/10 text-blue-500'} rounded-2xl flex items-center justify-center flex-shrink-0">
                             <i class="fa-solid fa-plane-arrival text-2xl"></i>
                         </div>
-                        
+
                         <div class="flex-grow grid grid-cols-1 md:grid-cols-3 gap-6 w-full text-center sm:text-left">
                             <div>
                                 <h3 class="text-xl font-bold ${isCancelled ? 'text-slate-500 line-through' : 'text-slate-50'} mb-1">${booking.destination}</h3>
                                 <p class="text-slate-400 text-sm flex items-center justify-center sm:justify-start">
-                                    <i class="fa-solid fa-calendar-day mr-2 text-indigo-500"></i> ${booking.travelDate}${booking.returnDate ? ' - ' + booking.returnDate : ''}
+                                    <i class="fa-solid fa-calendar-day mr-2 text-indigo-500"></i>
+                                    ${booking.travelDate}${booking.returnDate ? ' - ' + booking.returnDate : ''}
                                 </p>
-                                <p class="text-slate-500 text-[10px] mt-2 uppercase tracking-widest font-bold">Ref: ${booking._id}</p>
+                                <p class="text-slate-500 text-[10px] mt-2 uppercase tracking-widest font-bold">Ref: ${bookingId}</p>
                             </div>
-                            
+
                             <div class="space-y-1">
                                 <div class="flex items-center justify-between sm:justify-start sm:gap-4">
                                     <span class="text-slate-500 text-xs">Travelers:</span>
@@ -120,25 +141,30 @@
                                 </div>
                                 <div class="flex items-center justify-between sm:justify-start sm:gap-4">
                                     <span class="text-slate-500 text-xs">Total Amount:</span>
-                                    <span class="text-indigo-400 font-bold text-sm">$${booking.amount}</span>
+                                    <span class="text-indigo-400 font-bold text-sm">₹${booking.amount}</span>
+                                </div>
+                                <div class="flex items-center justify-between sm:justify-start sm:gap-4">
+                                    <span class="text-slate-500 text-xs">Payment Method:</span>
+                                    <span class="text-slate-300 font-medium text-sm uppercase">${booking.paymentMethod || 'N/A'}</span>
                                 </div>
                             </div>
 
                             <div class="flex flex-col justify-center sm:items-end gap-3 text-center sm:text-right">
                                 <div class="flex items-center justify-center sm:justify-end gap-2 mb-2">
                                     <span class="px-3 py-1 bg-green-500/10 text-green-500 text-[9px] font-extrabold rounded-full uppercase tracking-wider border border-green-500/20 whitespace-nowrap">
-                                        ${booking.paymentStatus}
+                                        ${booking.paymentStatus || 'Success'}
                                     </span>
                                     <span class="px-3 py-1 ${isCancelled ? 'bg-red-500/10 text-red-500' : 'bg-blue-500/10 text-blue-400'} text-[9px] font-extrabold rounded-full uppercase tracking-wider border ${isCancelled ? 'border-red-500/20' : 'border-blue-500/20'} whitespace-nowrap">
-                                        ${booking.bookingStatus}
+                                        ${booking.bookingStatus || 'Confirmed'}
                                     </span>
                                 </div>
+
                                 <div class="flex flex-row items-center justify-center sm:justify-end gap-4 mt-1">
                                     ${!isCancelled ? `
-                                        <button onclick="cancelBooking('${booking._id}')" class="text-red-400 hover:text-red-300 text-xs font-semibold flex items-center whitespace-nowrap transition-colors">
+                                        <button onclick="cancelBooking('${bookingId}')" class="text-red-400 hover:text-red-300 text-xs font-semibold flex items-center whitespace-nowrap transition-colors">
                                             <i class="fa-solid fa-ban mr-1.5"></i> Cancel Booking
                                         </button>
-                                        <a href="ticket-viewer.html?id=${booking._id}" class="text-blue-500 hover:text-blue-400 text-xs font-semibold flex items-center whitespace-nowrap transition-colors">
+                                        <a href="ticket-viewer.html?id=${bookingId}" class="text-blue-500 hover:text-blue-400 text-xs font-semibold flex items-center whitespace-nowrap transition-colors">
                                             <i class="fa-solid fa-ticket mr-1.5"></i> View Ticket
                                         </a>
                                     ` : '<span class="text-slate-600 text-xs italic">Booking Inactive</span>'}
@@ -146,25 +172,29 @@
                             </div>
                         </div>
                     `;
+
                     container.appendChild(card);
                 });
             }
 
-            window.cancelBooking = async (id) => {
+            window.cancelBooking = (id) => {
                 if (!confirm('Are you sure you want to cancel this booking?')) return;
-                
-                try {
-                    const response = await fetch(`/api/bookings/${id}/cancel`, { method: 'POST' });
-                    const data = await response.json();
-                    if (data.success) {
-                        alert('Booking cancelled successfully.');
-                        fetchBookings();
-                    } else {
-                        alert(data.message);
+
+                const allBookings = getBookings();
+                const updatedBookings = allBookings.map(booking => {
+                    const bookingId = booking.bookingId || booking._id;
+                    if (bookingId === id) {
+                        return {
+                            ...booking,
+                            bookingStatus: 'Cancelled'
+                        };
                     }
-                } catch (err) {
-                    alert('Cancellation failed.');
-                }
+                    return booking;
+                });
+
+                saveBookings(updatedBookings);
+                alert('Booking cancelled successfully.');
+                fetchBookings();
             };
 
             fetchBookings();
